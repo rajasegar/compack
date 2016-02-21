@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+/**
+ * @license
+ * Copyright (c) 2016 Rajasegar Chandran. All rights reserved.
+ */
+
+// jshint node: true
+'use strict';
+
+var nopt = require('nopt');
+var fs = require('fs');
+var compack = require('../lib/compack');
+
+var help = [
+    'compack: A Bundler for Web Components - Bundle your web component assets HTML, CSS and JS into one file',
+    '',
+    'Usage:',
+    'compack create my-component',
+    'compack bundle',
+    '',
+    'Options:',
+    '   -h|--help: print this message',
+    '   -v|--version: print version number',
+].join("\n");
+
+var args = nopt(
+    {
+        help:Boolean,
+        version: Boolean,
+        create: String
+    },
+    {
+        'h': ['--help'],
+        'v': ['--version']
+    }
+);
+
+function printHelp() {
+    console.log(help);
+}
+
+var pkg = require("../package.json");
+
+function printVersion() {
+    console.log("compack: ",pkg.version);
+}
+
+if(args.version) {
+    printVersion();
+    process.exit(0);
+}
+
+if(args.help) {
+    printHelp();
+    process.exit(0);
+}
+
+(new compack(args)).bundle();
+

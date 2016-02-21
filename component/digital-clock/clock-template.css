@@ -1,0 +1,17 @@
+.clock {
+    display:inline-flex;
+    justify-content: space-around;
+    background: white;
+    font-size: 8rem;
+    box-shadow: 2px 2px 4px -1px grey;
+    border: 1px solid green;
+    font-family: Helvetica, sans-serif;
+    width:100%;
+}
+.clock .hour,
+.clock .minute,
+.clock .second {
+    color:orange;
+    padding:1.5rem;
+    text-shadow:0px 2px black;
+}
