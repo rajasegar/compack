@@ -2,9 +2,9 @@
   "name": "compack",
   "version": "0.0.1",
   "description": "A bundler for Web Components ",
-  "main":" lib/compack.js",
+  "main": "bin/compack",
   "bin": {
-      "compack": "bin/compack"
+    "compack": "bin/compack"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,15 +17,17 @@
   ],
   "author": "Rajasegar Chandran",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/rajasegar/compack.git"
+    "type": "git",
+    "url": "https://github.com/rajasegar/compack.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.5.2",
     "babel-preset-es2015": "^6.5.0"
   },
   "dependencies": {
+    "mkdirp": "^0.5.1",
     "nopt": "^3.0.6"
-  }
+  },
+  "preferGlobal": true
 }

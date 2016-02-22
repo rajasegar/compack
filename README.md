@@ -20,6 +20,25 @@ npm install -g compack
 compack
 ```
 
+## Component Architecture
+```
+my-component-library
+    |--components
+    |   |--my-component1
+    |   |    |--my-component1.html
+    |   |    |--my-component1.css
+    |   |    |--my-component1.js
+    |   |--my-component2
+    |   |    |--my-component2.html
+    |   |    |--my-component2.css
+    |   |    |--my-component2.js
+    |--compack.config.js
+    |--my-component1.html
+    |--my-component2.html
+```
+
+    
+
 ## Config file for your component assets
 ### compack.config.js
 ```
@@ -83,4 +102,15 @@ module.exports = {
 * Separation of concerns by creating separate assets
 * Write your components using the new ES6 syntax
 * More coming soon...
+
+## Command Line Options
+This bundler can also be further configured with the following comman line flags.
+```
+-h, --help          output usage information
+-v, --version       output the version number
+```
+
+## License
+MIT[https://github.com/rajasegar/compack/blob/master/LICENSE
+
 
