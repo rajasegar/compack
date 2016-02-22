@@ -35,6 +35,27 @@ JS => my-component.js
 compack
 ```
 
+After running `compack` you will get an HTML file with all your component assets i.e., css, html and javascript bundled together.
+```
+my-component.html
+```
+
+## Using your component with HTML imports
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Testing My Component</title>
+<link rel="import" href="my-component.html">
+</head>
+<body>
+<my-component></my-component>
+</body>
+</html>
+```
+ 
+
 ## Component Architecture
 ```
 my-component-library
