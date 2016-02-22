@@ -13,24 +13,24 @@ components.
 npm install -g compack
 ```
 ## Getting Started
-1. Create component boilerplate
+### 1. Create component boilerplate
 ```
 compack --create my-component
 ```
 
-2. Install required packages
+### 2. Install required packages
 ```
 cd my-component && npm-install
 ```
 
-3. Build your component
+### 3. Build your component
 ```
 HTML => my-component.html
 CSS => my-component.css
 JS => my-component.js
 ```
 
-4. Bundle your component using
+### 4. Bundle your component using
 ```
 compack
 ```
@@ -127,6 +127,6 @@ This bundler can also be further configured with the following comman line flags
 ```
 
 ## License
-MIT[https://github.com/rajasegar/compack/blob/master/LICENSE
+MIT[https://github.com/rajasegar/compack/blob/master/LICENSE]
 
 
