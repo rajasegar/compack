@@ -7,15 +7,30 @@ that you can create your Presentation(CSS), Content(HTML) and behaviour(Javascri
 bundle them together into a single HTML file, which you can import in your web applications in include your
 components.
 
-## Getting Started
-Check out compack's documentation (yet to be written..)
 
 ## Installation
 ```
 npm install -g compack
 ```
+## Getting Started
+1. Create component boilerplate
+```
+compack --create my-component
+```
 
-## Bundle your component using
+2. Install required packages
+```
+cd my-component && npm-install
+```
+
+3. Build your component
+```
+HTML => my-component.html
+CSS => my-component.css
+JS => my-component.js
+```
+
+4. Bundle your component using
 ```
 compack
 ```
@@ -40,9 +55,9 @@ my-component-library
     
 
 ## Config file for your component assets
-### compack.config.js
+### component.json
 ```
-module.exports = {
+{
     components:[
         {
             name: "fp-table",
@@ -106,8 +121,9 @@ module.exports = {
 ## Command Line Options
 This bundler can also be further configured with the following comman line flags.
 ```
--h, --help          output usage information
--v, --version       output the version number
+-h, --help                      output usage information
+-v, --version                   output the version number
+-c, --create <component-name>   Create a boilerplate for your component
 ```
 
 ## License
