@@ -12,6 +12,7 @@ components.
 ```
 npm install -g compack
 ```
+
 ## Getting Started
 ### 1. Create component boilerplate
 ```
@@ -20,7 +21,7 @@ compack --create my-component
 
 ### 2. Install required packages
 ```
-cd my-component && npm-install
+cd my-component && npm install
 ```
 
 ### 3. Build your component
@@ -44,14 +45,16 @@ my-component.html
 ```
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Testing My Component</title>
-<link rel="import" href="my-component.html">
-</head>
-<body>
-<my-component></my-component>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Testing My Component</title>
+        <!-- Optional - Include webcomponents polyfill for cross-browser support -->
+        <script src="webcomponents.min.js"></script>
+        <link rel="import" href="my-component.html">
+    </head>
+    <body>
+        <my-component></my-component>
+    </body>
 </html>
 ```
  
@@ -68,7 +71,7 @@ my-component-library
     |   |    |--my-component2.html
     |   |    |--my-component2.css
     |   |    |--my-component2.js
-    |--compack.config.js
+    |--component.json
     |--my-component1.html
     |--my-component2.html
 ```
@@ -88,12 +91,12 @@ my-component-library
             imports: [ "search-bar","product-table"]
         }
     ]
-};
+}
 ```
 
 ## Bundling multiple components at the same time
 ```
-module.exports = {
+{
     components:[
         {
             name: "fp-table",
@@ -117,7 +120,7 @@ module.exports = {
             imports: []
         }
     ]
-};
+}
 ```
 
 ## How your components are bundled together
@@ -133,6 +136,50 @@ module.exports = {
     </script>`;
 ```
 
+## Using CSS Preprocessors
+Following are the list of CSS Preprocessors supported by compack:
+* SASS
+* LESS
+* Stylus
+
+### Using SASS engine for your component styles
+```
+compack --create my-component --css sass
+```
+
+
+### Using LESS engine for your component styles
+```
+compack --create my-component --css less
+```
+
+
+### Using Stylus engine for your component styles
+```
+compack --create my-component --css stylus
+```
+
+## Using HTML Template engines
+Following are the list of HTML Templating libraries supported:
+* JADE
+* EJS
+* HAML
+
+### Using JADE templating for your components
+```
+compack --create my-component --html jade
+```
+
+### Using EJS templating for your components
+```
+compack --create my-component --html ejs
+```
+
+### Using HAML templating for your components
+```
+compack --create my-component --html haml
+```
+
 
 ## Features
 * Separation of concerns by creating separate assets
@@ -140,7 +187,7 @@ module.exports = {
 * More coming soon...
 
 ## Command Line Options
-This bundler can also be further configured with the following comman line flags.
+This bundler can also be further configured with the following command line flags.
 ```
 -h, --help                      output usage information
 -v, --version                   output the version number
@@ -148,6 +195,6 @@ This bundler can also be further configured with the following comman line flags
 ```
 
 ## License
-MIT[https://github.com/rajasegar/compack/blob/master/LICENSE]
+MIT [https://github.com/rajasegar/compack/blob/master/LICENSE]
 
 

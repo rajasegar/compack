@@ -1,0 +1,11 @@
+{
+    "components":[
+        {
+            "name": "my-sass-button",
+            "css" : "component/my-sass-button/my-sass-button.scss",
+            "html": "component/my-sass-button/my-sass-button.html",
+            "js": "component/my-sass-button/my-sass-button.js",
+            "imports": [ ]
+        }
+    ]
+}

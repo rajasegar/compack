@@ -13,11 +13,17 @@ var fs = require('fs');
 var path = require('path');
 var compack = require('../lib/compack');
 
+var options = {
+    path: "",
+    css: "css",
+    html:"html"
+};
+
 var help = [
     'compack: A Bundler for Web Components - Bundle your web component assets HTML, CSS and JS into one file',
     '',
     'Usage:',
-    'compack create my-component',
+    'compack --create my-component',
     'compack bundle',
     '',
     'Options:',
@@ -29,7 +35,9 @@ var args = nopt(
     {
         help:Boolean,
         version: Boolean,
-        create: Boolean 
+        create: path,
+        css: String,
+        html: String
     },
     {
         'h': ['--help'],
@@ -37,8 +45,6 @@ var args = nopt(
         'c': ['--create']
     }
 );
-
-//console.log(args);
 
 function printHelp() {
     console.log(help);
@@ -60,27 +66,95 @@ if(args.help) {
     process.exit(0);
 }
 
+// CSS Preprocessor options
+if(args.css) {
+    var preProcessor = args.css;
+    options.css = preProcessor;
+}
+
+// HTML Template options
+if(args.html) {
+    var htmlTemplate = args.html;
+    options.html = htmlTemplate;
+}
+
 if(args.create) {
     // create applicaton
-    console.log("Creating component: ", args.argv.remain[0]);
-    createComponent(args.argv.remain[0]);
+    console.log("Creating component: ",args.create );
+    options.path = args.create;
+
+    createComponent(options);
+
     process.exit(0);
 }
 
-function createComponent(destinationPath) {
-    var componentName = path.basename(path.resolve(destinationPath));
-    var absPath = path.resolve(destinationPath);
+function createComponent(opts) {
+    var componentName = path.basename(path.resolve(opts.path));
+    var absPath = path.resolve(opts.path);
 
     var html = loadTemplate('component.html');
     var css = loadTemplate('component.css');
     var js = loadTemplate('component.js');
 
+    let cssExt = "css";
+    let htmlExt = "html";
+    let packageTemplate = {
+      name: componentName, 
+      version: "0.0.1",
+      description: "An awesome Web Component",
+      keywords: [
+        "web",
+        "components"
+      ],
+      license: "MIT",
+      devDependencies: {
+      },
+      dependencies: {
+        "babel-core": "^6.5.2",
+        "babel-preset-es2015": "^6.5.0"
+      }
+    };
+    switch(options.css) {
+        case "sass":
+            packageTemplate.dependencies["node-sass"] =  "^3.4.2";
+            cssExt = "scss";
+            break;
+        case "less":
+            cssExt = "less";
+            packageTemplate.dependencies["less"] = "^2.6.0";
+            break;
+        case "stylus":
+            cssExt = "styl";
+            packageTemplate.dependencies["stylus"] = "^0.53.0";
+            break;
+        default:
+            break;
+    }
+    
+    // HTML Template Engine
+    switch(options.html) {
+        case "jade":
+            packageTemplate.dependencies["jade"] = "^1.11.0";
+            htmlExt = "jade";
+            break;
+        case "ejs":
+            packageTemplate.dependencies["ejs"] = "^2.4.1";
+            htmlExt = "ejs";
+            break;
+        case "haml":
+            packageTemplate.dependencies["haml"] = "^0.6.2";
+            htmlExt = "haml";
+            break;
+        default:
+            break;
+    }
+
     let configTemplate = `{
         "components":[
             {
                 "name": "${componentName}",
-                "css" : "components/${componentName}/${componentName}.css",
-                "html": "components/${componentName}/${componentName}.html",
+                "css" : "components/${componentName}/${componentName}.${cssExt}",
+                "html": "components/${componentName}/${componentName}.${htmlExt}",
                 "js": "components/${componentName}/${componentName}.js",
                 "imports": [ ]
             }
@@ -92,30 +166,22 @@ function createComponent(destinationPath) {
     fs.mkdirSync(absPath,dirMode);
     fs.mkdirSync(absPath + '/components',dirMode);
     fs.mkdirSync(absPath + '/components/' + componentName,dirMode);
-    write(absPath + '/components/' + componentName + '/' + componentName + '.html',html);
-    write(absPath + '/components/' + componentName + '/' + componentName + '.css',css);
+
+    // Write component html file
+    let htmlFileName = `${absPath}/components/${componentName}/${componentName}.${htmlExt}`;
+    write(htmlFileName,html);
+
+    // Write component css file
+    let cssFileName = `${absPath}/components/${componentName}/${componentName}.${cssExt}`;
+    write(cssFileName,css);
     write(absPath + '/components/' + componentName + '/' + componentName + '.js', js);
     write(absPath + '/component.json', configTemplate);
     write(absPath + '/.babelrc', babelrc);
 
-    let packageTemplate = `
-    {
-      "name": "${componentName}",
-      "version": "0.0.1",
-      "description": "An awesome Web Component",
-      "keywords": [
-        "web",
-        "components"
-      ],
-      "license": "MIT",
-      "devDependencies": {
-      },
-      "dependencies": {
-        "babel-core": "^6.5.2",
-        "babel-preset-es2015": "^6.5.0"
-      }
-    }`;
-    write(absPath + '/package.json',packageTemplate);
+
+
+
+    write(absPath + '/package.json',JSON.stringify(packageTemplate,null,2));
 
 }
 
@@ -127,8 +193,7 @@ function write(path,str,mode) {
 function loadTemplate(name) {
     return fs.readFileSync(path.join(__dirname,'..','templates',name),'utf-8');
 }
-
 if(args.argv.original.length === 0) {
-    (new compack(args)).bundle();
+    (new compack(options)).bundle();
 }
 
