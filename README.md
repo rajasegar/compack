@@ -143,9 +143,9 @@ compack --create my-component --es6
 
 ## Using CSS Preprocessors
 Following are the list of CSS Preprocessors supported by compack:
-* SASS
-* LESS
-* Stylus
+* [SASS] (http://sass-lang.com/)
+* [LESS] (http://lesscss.org/)
+* [Stylus] (http://stylus-lang.com/)
 
 ### Using SASS engine for your component styles
 ```
@@ -166,9 +166,9 @@ compack --create my-component --css stylus
 
 ## Using HTML Template engines
 Following are the list of HTML Templating libraries supported:
-* JADE
-* EJS
-* HAML
+* [JADE] (http://jade-lang.com/)
+* [EJS] (https://github.com/mde/ejs)
+* [HAML] (http://haml-lang.com/)
 
 ### Using JADE templating for your components
 ```
@@ -207,6 +207,6 @@ This bundler can also be further configured with the following command line flag
 ```
 
 ## License
-MIT [https://github.com/rajasegar/compack/blob/master/LICENSE]
+[MIT] (https://github.com/rajasegar/compack/blob/master/LICENSE)
 
 
