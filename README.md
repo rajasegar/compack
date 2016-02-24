@@ -3,8 +3,8 @@ An awesome bundler for Web Components
 
 ## Introduction
 compack is a bundler for Web Components. The main purpose is separation of concerns for your Web components, so
-that you can create your Presentation(CSS), Content(HTML) and behaviour(Javascript) files separately and finally
-bundle them together into a single HTML file, which you can import in your web applications in include your
+that you can create your Presentation(CSS), Content(HTML) and Behaviour(Javascript) parts of your component separately and finally
+bundle them together into a single HTML file, which you can import in your web applications to include your
 components.
 
 
@@ -132,8 +132,13 @@ my-component-library
         ${html}
     </template>
     <script>
-        ${script.code}
+        ${js}
     </script>`;
+```
+
+## Using ES6 to write your components
+```
+compack --create my-component --es6
 ```
 
 ## Using CSS Preprocessors
@@ -184,6 +189,10 @@ compack --create my-component --html haml
 ## Features
 * Separation of concerns by creating separate assets
 * Write your components using the new ES6 syntax
+* Use SASS, LESS or Stylus to preprocess your component css
+* Use JADE, EJS or HAML for templating in your component
+* Bundle one or more components simultaneously
+* Option(s) to specify your component dependencies (i.e., if your components depend on other components)
 * More coming soon...
 
 ## Command Line Options
@@ -192,6 +201,9 @@ This bundler can also be further configured with the following command line flag
 -h, --help                      output usage information
 -v, --version                   output the version number
 -c, --create <component-name>   Create a boilerplate for your component
+    --css  <css-preprocessor>   Set your preferred CSS Preprocessor engine (e.g: sass, less, stylus)
+    --html <html-templating>    Set your preferred HTML Templating engine (e.g: jade, ejs, haml)
+    --es6                       Use ES6 to write your component
 ```
 
 ## License

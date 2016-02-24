@@ -8,18 +8,19 @@
 // jshint node: true
 'use strict';
 
-var nopt = require('nopt');
-var fs = require('fs');
-var path = require('path');
-var compack = require('../lib/compack');
+const nopt = require('nopt');
+const fs = require('fs');
+const path = require('path');
+const compack = require('../lib/compack');
 
-var options = {
+let options = {
     path: "",
     css: "css",
-    html:"html"
+    html:"html",
+    es6: false
 };
 
-var help = [
+const help = [
     'compack: A Bundler for Web Components - Bundle your web component assets HTML, CSS and JS into one file',
     '',
     'Usage:',
@@ -31,13 +32,14 @@ var help = [
     '   -v|--version: print version number',
 ].join("\n");
 
-var args = nopt(
+let args = nopt(
     {
         help:Boolean,
         version: Boolean,
         create: path,
         css: String,
-        html: String
+        html: String,
+        es6: Boolean
     },
     {
         'h': ['--help'],
@@ -50,7 +52,7 @@ function printHelp() {
     console.log(help);
 }
 
-var pkg = require("../package.json");
+let pkg = require("../package.json");
 
 function printVersion() {
     console.log("compack: ",pkg.version);
@@ -68,14 +70,17 @@ if(args.help) {
 
 // CSS Preprocessor options
 if(args.css) {
-    var preProcessor = args.css;
-    options.css = preProcessor;
+    options.css = args.css;
 }
 
 // HTML Template options
 if(args.html) {
-    var htmlTemplate = args.html;
-    options.html = htmlTemplate;
+    options.html = args.html;
+}
+
+// ES6 option
+if(args.es6) {
+    options.es6 = args.es6;
 }
 
 if(args.create) {
@@ -89,12 +94,13 @@ if(args.create) {
 }
 
 function createComponent(opts) {
-    var componentName = path.basename(path.resolve(opts.path));
-    var absPath = path.resolve(opts.path);
+    let componentName = path.basename(path.resolve(opts.path));
+    let absPath = path.resolve(opts.path);
 
-    var html = loadTemplate('component.html');
-    var css = loadTemplate('component.css');
-    var js = loadTemplate('component.js');
+    let html = loadTemplate('component.html');
+    let css = loadTemplate('component.css');
+    let esVersion = (options.es6) ? "es6" : "es5" ;
+    let js = loadTemplate(`component-${esVersion}.js`);
 
     let cssExt = "css";
     let htmlExt = "html";
@@ -110,10 +116,15 @@ function createComponent(opts) {
       devDependencies: {
       },
       dependencies: {
-        "babel-core": "^6.5.2",
-        "babel-preset-es2015": "^6.5.0"
       }
     };
+    
+    // Write babel dependencies in package.json
+    if(options.es6) {
+        packageTemplate.dependencies["babel-core"] = "^6.5.2";
+        packageTemplate.dependencies["babel-preset-es2015"] = "^6.5.0";
+    }
+
     switch(options.css) {
         case "sass":
             packageTemplate.dependencies["node-sass"] =  "^3.4.2";
@@ -156,13 +167,14 @@ function createComponent(opts) {
                 "css" : "components/${componentName}/${componentName}.${cssExt}",
                 "html": "components/${componentName}/${componentName}.${htmlExt}",
                 "js": "components/${componentName}/${componentName}.js",
-                "imports": [ ]
+                "imports": [ ],
+                "es6": ${options.es6}
             }
         ]
     }`;
 
-    var babelrc = loadTemplate(".babelrc");
-    var dirMode = 0o755;
+    let babelrc = loadTemplate(".babelrc");
+    let dirMode = 0o755;
     fs.mkdirSync(absPath,dirMode);
     fs.mkdirSync(absPath + '/components',dirMode);
     fs.mkdirSync(absPath + '/components/' + componentName,dirMode);
@@ -174,9 +186,14 @@ function createComponent(opts) {
     // Write component css file
     let cssFileName = `${absPath}/components/${componentName}/${componentName}.${cssExt}`;
     write(cssFileName,css);
-    write(absPath + '/components/' + componentName + '/' + componentName + '.js', js);
+
+    // Write component javascript file
+    let jsFileName = `${absPath}/components/${componentName}/${componentName}.js`;
+    write(jsFileName,js);
     write(absPath + '/component.json', configTemplate);
-    write(absPath + '/.babelrc', babelrc);
+    if(options.es6) {
+        write(absPath + '/.babelrc', babelrc);
+    }
 
 
 
