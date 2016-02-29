@@ -95,7 +95,7 @@ my-component-library
 ```
 
 ## Bundling multiple components at the same time
-```
+```javascript
 {
     components:[
         {
