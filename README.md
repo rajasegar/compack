@@ -9,18 +9,18 @@ components.
 
 
 ## Installation
-```
+```sh
 npm install -g compack
 ```
 
 ## Getting Started
 ### 1. Create component boilerplate
-```
+```sh
 compack --create my-component
 ```
 
 ### 2. Install required packages
-```
+```sh
 cd my-component && npm install
 ```
 
@@ -32,7 +32,7 @@ JS => my-component.js
 ```
 
 ### 4. Bundle your component using
-```
+```sh
 compack
 ```
 
@@ -42,7 +42,7 @@ my-component.html
 ```
 
 ## Using your component with HTML imports
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -124,7 +124,7 @@ my-component-library
 ```
 
 ## How your components are bundled together
-```
+```html
     `<template id="${component.name}">
         <style>
             ${css}
@@ -137,7 +137,7 @@ my-component-library
 ```
 
 ## Using ES6 to write your components
-```
+```sh
 compack --create my-component --es6
 ```
 
@@ -148,19 +148,19 @@ Following are the list of CSS Preprocessors supported by compack:
 * [Stylus] (http://stylus-lang.com/)
 
 ### Using SASS engine for your component styles
-```
+```sh
 compack --create my-component --css sass
 ```
 
 
 ### Using LESS engine for your component styles
-```
+```sh
 compack --create my-component --css less
 ```
 
 
 ### Using Stylus engine for your component styles
-```
+```sh
 compack --create my-component --css stylus
 ```
 
@@ -171,17 +171,17 @@ Following are the list of HTML Templating libraries supported:
 * [HAML] (http://haml-lang.com/)
 
 ### Using JADE templating for your components
-```
+```sh
 compack --create my-component --html jade
 ```
 
 ### Using EJS templating for your components
-```
+```sh
 compack --create my-component --html ejs
 ```
 
 ### Using HAML templating for your components
-```
+```sh
 compack --create my-component --html haml
 ```
 
