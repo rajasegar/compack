@@ -80,7 +80,7 @@ my-component-library
 
 ## Config file for your component assets
 ### component.json
-```
+```javascript
 {
     components:[
         {
