@@ -9,19 +9,19 @@ components.
 
 
 ## Installation
-```
-npm install -g compack
+```sh
+$ npm install -g compack
 ```
 
 ## Getting Started
 ### 1. Create component boilerplate
-```
-compack --create my-component
+```sh
+$ compack --create my-component
 ```
 
 ### 2. Install required packages
-```
-cd my-component && npm install
+```sh
+$ cd my-component && npm install
 ```
 
 ### 3. Build your component
@@ -32,8 +32,8 @@ JS => my-component.js
 ```
 
 ### 4. Bundle your component using
-```
-compack
+```sh
+$ compack
 ```
 
 After running `compack` you will get an HTML file with all your component assets i.e., css, html and javascript bundled together.
@@ -42,7 +42,7 @@ my-component.html
 ```
 
 ## Using your component with HTML imports
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -80,7 +80,7 @@ my-component-library
 
 ## Config file for your component assets
 ### component.json
-```
+```javascript
 {
     components:[
         {
@@ -95,7 +95,7 @@ my-component-library
 ```
 
 ## Bundling multiple components at the same time
-```
+```javascript
 {
     components:[
         {
@@ -124,7 +124,7 @@ my-component-library
 ```
 
 ## How your components are bundled together
-```
+```html
     `<template id="${component.name}">
         <style>
             ${css}
@@ -137,8 +137,8 @@ my-component-library
 ```
 
 ## Using ES6 to write your components
-```
-compack --create my-component --es6
+```sh
+$ compack --create my-component --es6
 ```
 
 ## Using CSS Preprocessors
@@ -148,20 +148,20 @@ Following are the list of CSS Preprocessors supported by compack:
 * [Stylus] (http://stylus-lang.com/)
 
 ### Using SASS engine for your component styles
-```
-compack --create my-component --css sass
+```sh
+$ compack --create my-component --css sass
 ```
 
 
 ### Using LESS engine for your component styles
-```
-compack --create my-component --css less
+```sh
+$ compack --create my-component --css less
 ```
 
 
 ### Using Stylus engine for your component styles
-```
-compack --create my-component --css stylus
+```sh
+$ compack --create my-component --css stylus
 ```
 
 ## Using HTML Template engines
@@ -171,18 +171,18 @@ Following are the list of HTML Templating libraries supported:
 * [HAML] (http://haml-lang.com/)
 
 ### Using JADE templating for your components
-```
-compack --create my-component --html jade
+```sh
+$ compack --create my-component --html jade
 ```
 
 ### Using EJS templating for your components
-```
-compack --create my-component --html ejs
+```sh
+$ compack --create my-component --html ejs
 ```
 
 ### Using HAML templating for your components
-```
-compack --create my-component --html haml
+```sh
+$ compack --create my-component --html haml
 ```
 
 
