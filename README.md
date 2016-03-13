@@ -1,6 +1,11 @@
 # compack
 An awesome bundler for Web Components
 
+[![Build Status](https://travis-ci.org/rajasegar/data-structures.svg?branch=master)](https://travis-ci.org/rajasegar/data-structures) 
+[![npm](https://img.shields.io/npm/dm/compack.svg)](https://www.npmjs.com/package/compack)  
+[![npm version](http://img.shields.io/npm/v/compack.svg?style=flat)](https://npmjs.org/package/compack "View this project on npm")
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+
 ## Introduction
 compack is a bundler for Web Components. The main purpose is separation of concerns for your Web components, so
 that you can create your Presentation(CSS), Content(HTML) and Behaviour(Javascript) parts of your component separately and finally
@@ -62,18 +67,18 @@ my-component.html
 ## Component Architecture
 ```
 my-component-library
-    |--components
-    |   |--my-component1
-    |   |    |--my-component1.html
-    |   |    |--my-component1.css
-    |   |    |--my-component1.js
-    |   |--my-component2
-    |   |    |--my-component2.html
-    |   |    |--my-component2.css
-    |   |    |--my-component2.js
-    |--component.json
-    |--my-component1.html
-    |--my-component2.html
+|--components
+|   |--my-component1
+|   |    |--my-component1.html
+|   |    |--my-component1.css
+|   |    |--my-component1.js
+|   |--my-component2
+|   |    |--my-component2.html
+|   |    |--my-component2.css
+|   |    |--my-component2.js
+|--component.json
+|--my-component1.html
+|--my-component2.html
 ```
 
     
@@ -85,7 +90,10 @@ my-component-library
     components:[
         {
             name: "fp-table",
-            css : "component/fp-table/fp-table.css",
+            css : {
+                fileName: "component/fp-table/fp-table.css",
+                compressed: false
+            },
             html: "component/fp-table/fp-table.html",
             js: "component/fp-table/fp-table.js",
             imports: [ "search-bar","product-table"]
@@ -125,7 +133,7 @@ my-component-library
 
 ## How your components are bundled together
 ```html
-    `<template id="${component.name}">
+    <template id="${component.name}">
         <style>
             ${css}
         </style>
@@ -133,7 +141,7 @@ my-component-library
     </template>
     <script>
         ${js}
-    </script>`;
+    </script>;
 ```
 
 ## Using ES6 to write your components
