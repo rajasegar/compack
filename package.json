@@ -1,6 +1,6 @@
 {
   "name": "compack",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A bundler for Web Components ",
   "main": "bin/compack",
   "bin": {
