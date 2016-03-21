@@ -12,6 +12,7 @@ const nopt = require('nopt');
 const fs = require('fs');
 const path = require('path');
 const compack = require('../lib/compack');
+const watch = require("watch");
 
 let options = {
     path: "",
@@ -39,12 +40,16 @@ let args = nopt(
         create: path,
         css: String,
         html: String,
-        es6: Boolean
+        es6: Boolean,
+        server: Boolean,
+        watch: Boolean
     },
     {
         'h': ['--help'],
         'v': ['--version'],
-        'c': ['--create']
+        'c': ['--create'],
+        's': ['--server',"server"],
+        'w': ['--watch']
     }
 );
 
@@ -83,6 +88,7 @@ if(args.es6) {
     options.es6 = args.es6;
 }
 
+// create boilerplate
 if(args.create) {
     // create applicaton
     console.log("Creating component: ",args.create );
@@ -93,7 +99,37 @@ if(args.create) {
     process.exit(0);
 }
 
+// start development server
+if(args.server) {
+    //start the server
+    console.log("Starting compack server: ");
+    var liveServer = require("live-server");
 
+    var params = {
+        port: 8181,
+        host: "0.0.0.0",
+        file: "test.html"
+    };
+
+    (new compack(options)).bundle();
+    liveServer.start(params);
+    watch.createMonitor("./components",function(monitor) {
+        monitor.on("changed", function(f,curr,prev) {
+            console.log("File modified: " + f);
+            (new compack(options)).bundle();
+        });
+    });
+}
+
+// start watching file changes
+if(args.watch) {
+    watch.createMonitor("./components",function(monitor) {
+        monitor.on("changed", function(f,curr,prev) {
+            console.log("File modified: " + f);
+            (new compack(options)).bundle();
+        });
+    });
+}
 
 if(args.argv.original.length === 0) {
     (new compack(options)).bundle();

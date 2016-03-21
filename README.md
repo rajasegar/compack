@@ -92,11 +92,15 @@ my-component-library
             name: "fp-table",
             css : {
                 fileName: "component/fp-table/fp-table.css",
-                compressed: false
+                compress: false
             },
             html: "component/fp-table/fp-table.html",
-            js: "component/fp-table/fp-table.js",
-            imports: [ "search-bar","product-table"]
+            js: { 
+                fileName: "component/fp-table/fp-table.js",
+                compress: false
+            },
+            imports: [ "search-bar","product-table"],
+            es6: false
         }
     ]
 }
@@ -141,7 +145,7 @@ my-component-library
     </template>
     <script>
         ${js}
-    </script>;
+    </script>
 ```
 
 ## Using ES6 to write your components
@@ -212,7 +216,26 @@ This bundler can also be further configured with the following command line flag
     --css  <css-preprocessor>   Set your preferred CSS Preprocessor engine (e.g: sass, less, stylus)
     --html <html-templating>    Set your preferred HTML Templating engine (e.g: jade, ejs, haml)
     --es6                       Use ES6 to write your component
+-w, --watch                     Watch option to monitor changes in you component assets and rebuild 
+-s, --server                    Development server with watch and live-reload options automatically set
 ```
+
+## Release notes
+
+### Version 
+
+
+## Release notes
+
+### Version  0.1.9
+* New Feature: Watch option for continous build
+* New Feature: Development server with live-reloading code
+* New Feature: Option to compress component js with uglify-js
+* Bug fix: Component JS template previously registered hard-coded "my-component"
+* Development: Component templates removed completely and moved code to the library
+* Development: compressed option for css files renamed to compress in component.json
+* Breaking: component.json format to accomodate compress option for js files
+
 
 ## License
 [MIT] (https://github.com/rajasegar/compack/blob/master/LICENSE)
