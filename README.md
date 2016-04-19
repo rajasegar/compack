@@ -5,6 +5,8 @@ An awesome bundler for Web Components
 [![npm](https://img.shields.io/npm/dm/compack.svg)](https://www.npmjs.com/package/compack)  
 [![npm version](http://img.shields.io/npm/v/compack.svg?style=flat)](https://npmjs.org/package/compack "View this project on npm")
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![David](https://img.shields.io/david/rajasegar/compack.svg?maxAge=2592000)](https://github.com/rajasegar/compack)
+[![David](https://img.shields.io/david/dev/rajasegar/compack.svg?maxAge=2592000)](https://github.com/rajasegar/compack)
 
 ## Introduction
 compack is a bundler for Web Components. The main purpose is separation of concerns for your Web components, so
@@ -45,6 +47,23 @@ After running `compack` you will get an HTML file with all your component assets
 ```
 my-component.html
 ```
+
+### Watch option
+```sh
+$ compack --watch
+```
+
+To continously monitor changes in you component files/assets and rebuild the component automatically.
+
+### Live reload server for development
+```sh
+$ compack --server 
+```
+
+To start a development server which automatically watches, builds and serves your component in a typical web-server fashion.
+Start the server using this option and listen to your http://localhost:8181 port in your browser, which reloads automatically whenever your component is changed.
+
+
 
 ## Using your component with HTML imports
 ```html
@@ -205,6 +224,8 @@ $ compack --create my-component --html haml
 * Use JADE, EJS or HAML for templating in your component
 * Bundle one or more components simultaneously
 * Option(s) to specify your component dependencies (i.e., if your components depend on other components)
+* Watch option to build your components automatically when one of its assets(html,css, js) changes
+* Development web server with watch and live-reload options integrated from within
 * More coming soon...
 
 ## Command Line Options

@@ -42,14 +42,16 @@ let args = nopt(
         html: String,
         es6: Boolean,
         server: Boolean,
-        watch: Boolean
+        watch: Boolean,
+        add: path
     },
     {
         'h': ['--help'],
         'v': ['--version'],
         'c': ['--create'],
         's': ['--server',"server"],
-        'w': ['--watch']
+        'w': ['--watch'],
+        'a': ['--add']
     }
 );
 
@@ -96,6 +98,15 @@ if(args.create) {
 
     (new compack(options)).createComponent();
 
+    process.exit(0);
+}
+
+// add component(s)
+if(args.add) {
+    // add component
+    console.log("Adding component: ", args.add);
+    options.path = args.add;
+    (new compack(options)).addComponent();
     process.exit(0);
 }
 
